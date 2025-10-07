@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -37,5 +38,11 @@ router.post('/login', async (req, res) => {
             res.status(500).json({message: err.message});
         }
 });
+
+//get user
+router.get('/me', protect, async (req, res) => {
+    res.json(req.user);
+});
+
 
 export default router;
