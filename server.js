@@ -9,12 +9,19 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/api/notes', noteRoutes);
 
 connectDB();
 
+//Routes
+app.use('/api/notes', noteRoutes);
+
 app.get('/', (req, res) => {
     res.send('Server is running');
+});
+
+app.use((err, req, res, next) =>{
+    console.error(err.stack);
+    res.status(500).json({message: "Internal server error"});
 });
 
 const PORT = process.env.PORT || 5000;
