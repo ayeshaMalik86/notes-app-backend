@@ -14,6 +14,10 @@ app.use(cors({
         process.env.CLIENT_URL_PROD,
     ].filter(Boolean),
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
+    maxAge: 600
 }));
 app.use(express.json());
 
